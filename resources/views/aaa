@@ -1,0 +1,9 @@
+public function showDetails($id)
+    // {
+    //     // Fetch the spare ticket details using the provided ID
+    //     $spareTicket = SpareTicket::findOrFail($id);
+    //     dd($spareTicket);
+    //     return view('spares.viewSpares', ['spareTicket' => $spareTicket]);
+    // }
+
+    {{ route('spares.showDetails', [$items->id]) }}

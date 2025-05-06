@@ -70,7 +70,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tblauditor');
+        Schema::dropIfExists('tblauditorclear');
         Schema::dropIfExists('tblboxes');
         Schema::dropIfExists('tblclass');
         Schema::dropIfExists('tblcompa');

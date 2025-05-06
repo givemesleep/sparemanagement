@@ -17,9 +17,17 @@ class SpareManagement extends Controller
                     ->where('is_defect', 0)
                     ->where('is_approved', 1)
                     ->get();
+
+        // $SparesInv = DB::table('tblsparesinfo')
+        //             ->select('part_model1')
+        //             ->distinct()
+        //             ->get();
+
+        // $generator = new BarcodeGeneratorHTML();
+        // $barcodeHTML = $generator->getBarcode($SparesInv, $generator::TYPE_CODE_128);
+
         return view('spares.sparesTable', ['spares' => $indexSpares]);
     }
-
 
     //Spares Add
 
@@ -111,7 +119,7 @@ class SpareManagement extends Controller
 
     // Spares Archive
     public function SpareArchive(SpareTicket $ArchiveSparesID){
-        $ArchiveSparesID->update(['is_active' => 0]);
+        $ArchiveSparesID->update(['is_active' => 0, 'is_approved' => 0]);
         // dd($ArchiveSparesID);
         return redirect()->route('spares.sparesTable')->with('success', 'Spare Archived successfully!');
     }

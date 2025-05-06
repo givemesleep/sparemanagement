@@ -76,17 +76,21 @@
                             <thead>
                                 <tr>
                                     <th style="width: 5%;">ID</th>
-                                    <th style="width: 10%;">Manufactor</th>
+                                    <th style="width: 5%;">Manufactor</th>
                                     <th style="width: 10%;">Hardware Type</th>
                                     <th style="width: 25%;">Description</th>
-                                    <th style="width: 15%;">Warehouse</th>
-                                    <th style="width: 15%;">Hardware Site</th>
+                                    <th style="width: 5%;">Warehouse</th>
+                                    <th style="width: 5%;">Client</th>
                                     <th style="width: 5%;">Status</th>
+                                    <th style="width: 20%;">Barcode</th>
                                     <th class="text-center" style="width: 10%;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $CountMe = 1; @endphp
+                                @php $CountMe = 1; 
+                                
+                                
+                                @endphp
                                 @foreach ($spares as $spare)
                                     @if ($spare->is_active == 1)
                                         @php $spare->is_active = 'Active'; @endphp
@@ -101,6 +105,7 @@
                                         <td>{{ $spare->warehouse_loc }}</td>
                                         <td>{{ $spare->hardware_site }}</td>
                                         <td><h5><span class="badge badge-success">{{ $spare->is_active }}</span></h5></td>
+                                        <td class="text-center"><h1></h1></td>
                                         <td class="text-center">
                                             <a href="{{ route('spares.showDetails', [$spare->sparesID]) }}" class="btn btn-dark btn-icon btn-sm" title="Viewing"><i class="bi bi-eye-fill"></i></a>
                                             <a href="{{ route('spares.PullOutSpares', [$spare->sparesID]) }}" class="btn btn-success btn-icon btn-sm"><i class="bi bi-box-seam-fill"></i></a>
@@ -117,6 +122,12 @@
         </div>
     </div>
 </main>
+
+<form id="barcodeForm" onsubmit="return false;">
+    <div class="form-group">
+        <input type="text" id="barcodeScanner" class="form-control" style="position: absolute; top: -1000px;" autofocus>
+    </div>
+</form>
 @endsection
 
 @section('scripts')
@@ -139,5 +150,26 @@
 });
  
 new DataTable('#myTable');
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const barcodeScanner = document.getElementById('barcodeScanner');
+
+    barcodeScanner.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent form submission or default behavior
+            const barcode = barcodeScanner.value.trim(); // Get the value from the input field
+            console.log('Scanned barcode:', barcode); // Log the scanned barcode for debugging
+            if (barcode) {
+                // Redirect to the viewSpares route with the scanned barcode
+                window.location.href = `/spares/barcodeScanned/${barcode}`;
+            }
+        }
+    });
+
+    // Automatically focus the scanner input
+    barcodeScanner.focus();
+});
 </script>
 @endsection

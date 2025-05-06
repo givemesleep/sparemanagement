@@ -108,11 +108,7 @@ if($isApp == 1){
                                         <p style="letter-spacing: 6px;" class="text-start">{{ $sparesID->part_model1 }}</p>
                                     </div>
                                     <div class="col-md-12">
-                                    <form id="barcodeForm" onsubmit="return false;">
-                                            <div class="form-group">
-                                                <input type="text" id="barcodeScanner" class="form-control" style="position: absolute; top: -1000px;" autofocus>
-                                            </div>
-                                        </form>
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +153,7 @@ if($isApp == 1){
                                 <h5>Location : <b>{{ $sparesID->warehouse_loc }}</b></h5>
                             </div>
                             <div class="col-md-4 mb-3">
-                                <h5>Site : <b>{{ $sparesID->hardware_site }}</b></h5>
+                                <h5>Client : <b>{{ $sparesID->hardware_site }}</b></h5>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <h5>Platform : <b>{{ $sparesID->platform_type }}</b></h5>
@@ -274,24 +270,5 @@ if($isApp == 1){
 <script src="{{ asset('cdns/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
 <script src="{{ asset('bootstrap/js/scripts.js')}}"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const barcodeScanner = document.getElementById('barcodeScanner');
 
-    barcodeScanner.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault(); // Prevent form submission or default behavior
-            const barcode = barcodeScanner.value.trim(); // Get the value from the input field
-            console.log('Scanned barcode:', barcode); // Log the scanned barcode for debugging
-            if (barcode) {
-                // Redirect to the viewSpares route with the scanned barcode
-                window.location.href = `/spares/barcodeScanned/${barcode}`;
-            }
-        }
-    });
-
-    // Automatically focus the scanner input
-    barcodeScanner.focus();
-});
-</script>
 @endsection

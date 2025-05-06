@@ -19,6 +19,10 @@ Route::get('/spares/pendingTicket', [SpareManagement::class, 'pendingTicket'])->
 //Route for the create ticket page
 Route::get('/spares/createTicket', [SpareManagement::class, 'createTicket'])->name('spares.createTicket');
 
+
+
+
+
 //LOGIN ROUTES!
 
 //Logout

@@ -109,6 +109,9 @@
 </style>
 @endsection
 
+
+
+@section('main')
 <!-- From Uiverse.io by vinodjangid07 --> 
 <form action="{{ route('logins.new_user') }}" method="POST" class="form_main">
   @csrf  @method('POST')
@@ -143,8 +146,6 @@
            
 <button id="button">Register</button>
 </form>
-
-@section('main')
 @endsection
 
 @section('scripts')

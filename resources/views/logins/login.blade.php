@@ -1,46 +1,57 @@
-@extends('components.layout_admin')
-@section('headscript')
-@endsection
+@extends('components.layout_login')
+
 @section('styles')
 <style>
     /* From Uiverse.io by vinodjangid07 */ 
-.form_main {
-  width: 220px;
+  body {
+    background-image: url("{{ asset('images/hays.jpg') }}");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+  .form_main {
+  width: 500px;
+  height: 600px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, .8);
   padding: 30px 30px 30px 30px;
-  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
+  /* box-shadow: 20px 22px 28px 0px rgba(20, 61, 71, 0.7); */
   position: relative;
   overflow: hidden;
+
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 12px;
 }
 
 .form_main::before {
   position: absolute;
   content: "";
-  width: 300px;
-  height: 300px;
-  background-color: rgb(209, 193, 255);
+  width: 800px;
+  height: 800px;
+  background-color:rgb(69, 118, 87);
   transform: rotate(45deg);
-  left: -180px;
-  bottom: 30px;
+  left: -635px;
+  bottom: -55px;
   z-index: 1;
   border-radius: 30px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.082);
 }
 
 .heading {
-  font-size: 2em;
+  font-size: 3em;
   color: #2e2e2e;
   font-weight: 700;
+  font-family: 'Poppins';
   margin: 5px 0 10px 0;
   z-index: 2;
 }
 
 .inputContainer {
-  width: 100%;
+  width: 70%;
   position: relative;
   display: flex;
   align-items: center;
@@ -58,7 +69,7 @@
   height: 30px;
   background-color: transparent;
   border: none;
-  border-bottom: 2px solid rgb(173, 173, 173);
+  border-bottom: 2px solid  rgb(186, 186, 186);
   margin: 10px 0;
   color: black;
   font-size: .8em;
@@ -69,39 +80,95 @@
 
 .inputField:focus {
   outline: none;
-  border-bottom: 2px solid rgb(199, 114, 255);
+  border-bottom: 2px solid rgb(0, 100, 13);
 }
 
 .inputField::placeholder {
-  color: rgb(80, 80, 80);
+  color: rgb(45, 45, 45);
   font-size: 1em;
   font-weight: 500;
 }
 
-#button {
+.Btn {
   z-index: 2;
   position: relative;
-  width: 100%;
+  width: 150px;
+  height: 55px;
+  border-radius: 45px;
   border: none;
-  background-color: rgb(162, 104, 255);
-  height: 30px;
+  background-color: rgb(93, 150, 115);
   color: white;
-  font-size: .8em;
-  font-weight: 500;
-  letter-spacing: 1px;
-  margin: 10px;
+  box-shadow: 0px 10px 10px rgb(93, 150, 115) inset,
+  0px 5px 10px rgba(5, 5, 5, 0.212),
+  0px -10px 10px rgb(93, 150, 115) inset;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#button:hover {
-  background-color: rgb(126, 84, 255);
+.Btn::before {
+  width: 70%;
+  height: 2px;
+  position: absolute;
+  background-color: rgba(250, 250, 250, 0.678);
+  content: "";
+  filter: blur(1px);
+  top: 7px;
+  border-radius: 50%;
 }
+
+.Btn::after {
+  width: 70%;
+  height: 2px;
+  position: absolute;
+  background-color: rgba(250, 250, 250, 0.137);
+  content: "";
+  filter: blur(1px);
+  bottom: 7px;
+  border-radius: 50%;
+}
+
+.Btn:hover {
+  animation: jello-horizontal 0.9s both;
+}
+
+@keyframes jello-horizontal {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 
 .forgotLink {
   z-index: 2;
-  font-size: .7em;
+  font-size: .9em;
   font-weight: 500;
-  color: rgb(44, 24, 128);
+  color:rgb(11, 147, 9);
   text-decoration: none;
   padding: 8px 15px;
   border-radius: 20px;
@@ -110,7 +177,8 @@
 @endsection
 
 <!-- From Uiverse.io by vinodjangid07 --> 
-<form action="{{ route('logins.user_login') }}" method="POST" class="form_main">
+@section('main')
+<form action="{{ route('logins.user_login') }}" method="POST" class="form_main mt-5">
   @csrf @method('POST')
   <p class="heading">Login</p>
     <div class="inputContainer">
@@ -127,11 +195,9 @@
     <input type="password" class="inputField" name="password" id="password" placeholder="Password">
 </div>
               
-<button id="button">Submit</button>
+<button class="Btn">Sign In</button>
     <a class="forgotLink" href="#">Forgot your password?</a>
 </form>
-
-@section('main')
 @endsection
 
 @section('scripts')

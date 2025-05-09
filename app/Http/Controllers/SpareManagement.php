@@ -18,13 +18,12 @@ class SpareManagement extends Controller
                     ->where('is_approved', 1)
                     ->get();
 
-        // $SparesInv = DB::table('tblsparesinfo')
-        //             ->select('part_model1')
-        //             ->distinct()
-        //             ->get();
+        $SparesInv = DB::table('tblsparesinfo')
+                    ->select('part_model1')
+                    ->distinct()
+                    ->get();
 
-        // $generator = new BarcodeGeneratorHTML();
-        // $barcodeHTML = $generator->getBarcode($SparesInv, $generator::TYPE_CODE_128);
+        
 
         return view('spares.sparesTable', ['spares' => $indexSpares]);
     }
@@ -57,6 +56,8 @@ class SpareManagement extends Controller
         // Debugging: Dump and Die to inspect the request data
         // dd($request->all());
 
+        // dd($request->all());
+        
         SpareTicket::create($datas);
         return redirect()->route('spares.sparesPending')->with('success', 'Spare ticket created successfully!');
         }catch(\Exception $e){

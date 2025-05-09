@@ -63,6 +63,10 @@
 
     }
 
+    .required {
+        color: red;
+    }
+
 </style>
 @endsection
 
@@ -79,28 +83,29 @@
     </div>
     <div class="container-fluid mt-n5">
 
-        <div class="card">
+        <div class="card card-header-actions">
             <div class="card-header">
                 Add the details of the spares received.
+                <i class="bi bi-info-circle fs-5" href="javascript:void(0);" tabindex="0" data-trigger="focus" title="" 
+                data-container="body" data-toggle="popover" data-placement="left" data-content="All fields with "></i>
             </div>
 
             <div class="card-body" style="height: 450px;">
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="alert alert-danger" role="alert">
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
                     </div>
                 @endif
+
                 <form action="{{ route('spares.createTicket.store') }}" method="POST">
                     @csrf
                     @method('POST')
                         <div class="form-group row px-4 g-3">
 
                             <div class="col-md-2 mb-3">
-                                <label for="manufacturer"><b>Manufacturer</b></label>
+                                <label for="manufacturer"><b>Manufacturer</b>&nbsp;<span class="required">*</span></label>
                                     <select class="form-control manu" id="manufacturer" name="manufacturer" style="height: 38px;">
                                         <option value="No Manufactorer Specified">Choose Manufacturer</option>
                                         @foreach ($manu as $manufactor)
@@ -112,7 +117,7 @@
                             </div>
 
                             <div class="col-md-2 mb-3">
-                                <label for="hardwaretypes"><b>Hardware Type</b></label>
+                                <label for="hardwaretypes"><b>Hardware Type</b>&nbsp;<span class="required">*</span></label>
                                     <select class="form-control types" id="hardwaretypes" name="hardware_type">
                                         <option value="No Hardware Specified">Choose Hardware</option>
                                         @foreach ($hwtype as $hwtypes)
@@ -124,7 +129,8 @@
                             </div>
 
                             <div class="col-md-2 mb-3">
-                                <label for="stats"><b>Hardware Category</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<i class="bi bi-info-circle-fill" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Critical -> &#013;Non-Critical ->"></i></label>
+                                <label for="stats"><b>Hardware Category</b>&nbsp;<span class="required">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <i class="bi bi-info-circle-fill" href="javascript:void(0);" title="Click to see description" data-bs-toggle="modal" data-bs-target="#CategoryDescript"></i></label>
                                     <select class="form-control stats" id="stats" name="hardware_category">
                                         <option value="No Category Specified">Choose Category</option>
                                         @foreach ($hwcateg as $hwcategs)
@@ -136,12 +142,12 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="desc"><b>Description</b></label>
+                                <label for="desc"><b>Description</b>&nbsp;<span class="required">*</span></label>
                                 <input class="form-control" id="desc" type="text" placeholder="" name="descriptions" minlength="15" maxlength="255">
                             </div>
                             
                             <div class="col-md-3 mb-3">
-                                <label for="part1"><b>Part Number 1</b></label>
+                                <label for="part1"><b>Part Number 1</b>&nbsp;<span class="required">*</span></label>
                                 <input class="form-control partnumber" id="part1" type="text" placeholder="" required name="part_model1" minlength="10" maxlength="25">
                             </div>
 
@@ -152,7 +158,7 @@
 
                             <div class="col-md-3 mb-3">
                                 <label for="part3"><b>Part Number 3</b></label>
-                                <input class="form-control partnumber" id="part3" type="text" placeholder="" name="part_model3" minlength="10" maxlength="25">
+                                <input class="form-control partnumber" id="part3" type="text" placeholder="" name="part_model3" minlength="10" maxlength="25"> 
                             </div>
 
                             <div class="col-md-3 mb-3">
@@ -161,7 +167,7 @@
                             </div>
 
                             <div class="col-md-3 mb-3">
-                                <label for="location"><b>Warehouse Location</b></label>
+                                <label for="location"><b>Warehouse Location</b>&nbsp;<span class="required">*</span></label>
                                     <select class="form-control location" id="location" name="warehouse_loc">
                                         <option value="No Location Specified">Choose Location</option>
                                         @foreach ($warehouse as $warehouses)
@@ -197,7 +203,7 @@
                             </div>
 
                             <div class="col-md-3 mb-3">
-                                <label for="categ"><b>Received By</b></label>
+                                <label for="categ"><b>Received By</b>&nbsp;<span class="required">*</span></label>
                                     <select class="form-control receiver" id="categ" name="received_by">
                                         <option value="No Receiver Specified">Choose Receiver</option>
                                         @foreach ($auditor as $audits)
@@ -220,6 +226,36 @@
 
     </div>
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="CategoryDescript" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title"><b>Hardware Category</b></div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12 mt-2 mb-3">
+                <p><b>Critical Hardware : </b>Components that are essential for the system to function properly.</p>
+                <p>Examples : Power supply, CPU, memory modules, storage drives, system board.</p>
+                <p><b>Impact of Failure : </b>A failure in critical hardware typically leads to system downtime, data loss, or severe performance degradation.</p>
+                <p><b>Priority : </b>Requires immediate attention or replacement.</p>
+            </div>
+            <div class="col-md-12">
+                <p><b>Non-Critical Hardware : </b>Components that are not essential to basic system operation or can fail without immediately impacting functionality.</p>
+                <p>Examples : USB ports, secondary fans, LED indicators, optical drives.</p>
+                <p><b>Impact of Failure : </b>May cause minor inconvenience but does not stop the system from running.</p>
+                <p><b>Priority : </b>Can usually be scheduled for later maintenance or replacement.</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @endsection
 
 @section('scripts')

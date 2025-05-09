@@ -65,69 +65,59 @@
         </div>
     </div>
     <div class="container-fluid mt-n10">
-        <div class="toggle-card">
+        <div class="card">
 
-            <div class="table-slide">
-                
-                <div class="card-body">
+        <div class="card-body">
 
-                    <div class="datatable table-responsive">
-                        <table class="table table-bordered table-hover" id="myTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th style="width: 5%;">ID</th>
-                                    <th style="width: 5%;">Manufactor</th>
-                                    <th style="width: 10%;">Hardware Type</th>
-                                    <th style="width: 25%;">Description</th>
-                                    <th style="width: 5%;">Warehouse</th>
-                                    <th style="width: 5%;">Client</th>
-                                    <th style="width: 5%;">Status</th>
-                                    <th style="width: 20%;">Barcode</th>
-                                    <th class="text-center" style="width: 10%;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php $CountMe = 1; 
-                                
-                                
-                                @endphp
-                                @foreach ($spares as $spare)
-                                    @if ($spare->is_active == 1)
-                                        @php $spare->is_active = 'Active'; @endphp
-                                    @else
-                                        @php $spare->is_active = 'Inactive'; @endphp
-                                    @endif
-                                    <tr>
-                                        <td>{{ $CountMe++ }}</td>
-                                        <td>{{ $spare->manufacturer }}</td>
-                                        <td>{{ $spare->hardware_type }}</td>
-                                        <td>{{ $spare->descriptions }}</td>
-                                        <td>{{ $spare->warehouse_loc }}</td>
-                                        <td>{{ $spare->hardware_site }}</td>
-                                        <td><h5><span class="badge badge-success">{{ $spare->is_active }}</span></h5></td>
-                                        <td class="text-center"><h1></h1></td>
-                                        <td class="text-center">
-                                            <a href="{{ route('spares.showDetails', [$spare->sparesID]) }}" class="btn btn-dark btn-icon btn-sm" title="Viewing"><i class="bi bi-eye-fill"></i></a>
-                                            <a href="{{ route('spares.PullOutSpares', [$spare->sparesID]) }}" class="btn btn-success btn-icon btn-sm"><i class="bi bi-box-seam-fill"></i></a>
-                                            <a href="{{ route('spares.SpareArchive', [ $spare->sparesID ]) }}" class="btn btn-danger btn-icon btn-sm"><i class="bi bi-archive-fill"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="datatable table-responsive">
+                <table class="table table-bordered table-hover" id="myTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">ID</th>
+                            <th style="width: 5%;">Manufactor</th>
+                            <th style="width: 10%;">Hardware Type</th>
+                            <th style="width: 25%;">Description</th>
+                            <th style="width: 5%;">Warehouse</th>
+                            <th style="width: 5%;">Client</th>
+                            <th style="width: 5%;">Status</th>
+                            <th class="text-center" style="width: 10%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php  
+                            $CountMe = 1;
+                        @endphp
+                        @foreach ($spares as $spare)
+                            @if ($spare->is_active == 1)
+                                @php $spare->is_active = 'Active'; @endphp
+                            @else
+                                @php $spare->is_active = 'Inactive'; @endphp
+                            @endif
+                            <tr>
+                                <td>{{ $CountMe++ }}</td>
+                                <td>{{ $spare->manufacturer }}</td>
+                                <td>{{ $spare->hardware_type }}</td>
+                                <td>{{ $spare->descriptions }}</td>
+                                <td>{{ $spare->warehouse_loc }}</td>
+                                <td>{{ $spare->hardware_site }}</td>
+                                <td><h5><span class="badge badge-success">{{ $spare->is_active }}</span></h5></td>
+                                <td class="text-center">
+                                    <a href="{{ route('spares.showDetails', [$spare->sparesID]) }}" class="btn btn-dark btn-icon btn-sm" title="Viewing"><i class="bi bi-eye-fill"></i></a>
+                                    <a href="{{ route('spares.PullOutSpares', [$spare->sparesID]) }}" class="btn btn-success btn-icon btn-sm"><i class="bi bi-box-seam-fill"></i></a>
+                                    <a href="{{ route('spares.SpareArchive', [ $spare->sparesID ]) }}" class="btn btn-danger btn-icon btn-sm"><i class="bi bi-archive-fill"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-            
+            </div>
+         
         </div>
     </div>
 </main>
 
-<form id="barcodeForm" onsubmit="return false;">
-    <div class="form-group">
-        <input type="text" id="barcodeScanner" class="form-control" style="position: absolute; top: -1000px;" autofocus>
-    </div>
-</form>
+
 @endsection
 
 @section('scripts')

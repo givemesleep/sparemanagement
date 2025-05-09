@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Account;
+use App\Models\login\Account;
 use Illuminate\Support\Facades\Hash;
 
 class SpareLogin extends Controller

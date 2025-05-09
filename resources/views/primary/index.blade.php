@@ -14,16 +14,22 @@
         <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4">
             <div class="mr-4 mb-3 mb-sm-0">
                 <h1 class="mb-0">Dashboard</h1>
-                <div class="small"><span class="font-weight-500 text-primary">@php echo date('l'); @endphp </span> &middot; @php echo date('F j, Y'); @endphp &middot; @php echo date(' h:i:s A'); @endphp </div>
+                <div class="small"><span class="font-weight-500 text-primary">@php echo date('l'); @endphp </span> &middot; @php echo date('F j, Y'); @endphp &middot; <span id="clocking"></span> </div>
             </div>
         </div>
+
+        @php
+            $CurrentUser = Session::get('user');
+            $users = $CurrentUser->username;
+            $emails = $CurrentUser->email;
+        @endphp
 
         <div class="alert alert-primary alert-icon border-top-lg mb-3" id="myAlert" role="alert">
             <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <div class="alert-icon-aside"><i class="far fa-bell"></i></div>
                     <div class="alert-icon-content">
                         <h6 class="alert-heading">Welcome Back!</h6>
-                            Good Day $User! Stay Hydrated and Drink you coffee! ^_^
+                            Good Day <b>@php echo $users.'!'; @endphp </b> Stay Hydrated and Drink you coffee! ^_^
                     </div>
         </div>
 
@@ -144,7 +150,7 @@
                 <div class="card mb-4">
                     <div class="card-header">Recent Spare Received <i class="fas fa-dot-circle text-success ml-2"></i></div>
                     <div class="card-body" onload="makeTableScroll();">
-                        <table class="table table-striped" id="myTable">
+                        <table class="table table-striped" id="myTable" style="width:100%; table-layout:fixed;">
                             <thead>
                                 <tr>
                                     <th>Primary Part No.</th>
@@ -157,12 +163,20 @@
                             </thead>
                             <tbody>
                                 @foreach ($Recent as $Recents)
+                                @php 
+                                    $date = date_create($Recents->created_at);
+                                    $dates = date_format($date, 'F j, Y');
+                                @endphp
                                     <tr>
                                         <td>{{ $Recents->part_model1 }}</td>
                                         <td>{{ $Recents->serial_model }}</td>
                                         <td>{{ $Recents->hardware_type }}</td>
                                         <td>{{ $Recents->warehouse_loc }}</td>
-                                        <td></td>
+                                        <td>
+                                            @php 
+                                                echo $dates;
+                                            @endphp 
+                                        </td>
                                         <td>{{ $Recents->received_by }}</td>
                                     </tr>
                                 @endforeach
@@ -225,5 +239,25 @@ setTimeout(function() {
 //   }]
 // };
 
+</script>
+
+<script>
+    function updateClock() {
+        const clockElement = document.getElementById('clocking');
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12; // Convert to 12-hour format and handle midnight (0 becomes 12)
+        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
+        clockElement.textContent = formattedTime;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initialize the clock immediately
+    updateClock();
 </script>
 @endsection

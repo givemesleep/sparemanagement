@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function(Blueprint $accounts){
-            $accounts->id('account_id');
+        Schema::create('tblaccountsinfo', function(Blueprint $accounts){
+            $accounts->id('accountID');
             $accounts->string('username');
             $accounts->string('email');
             $accounts->string('password');
             $accounts->integer('role');
             $accounts->timestamps();
-            $accounts->boolean('is_active');
+            $accounts->smallInteger('is_active');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('tblaccountsinfo');
     }
 };

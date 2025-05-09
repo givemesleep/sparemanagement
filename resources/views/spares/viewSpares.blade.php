@@ -100,12 +100,11 @@ if($isApp == 1){
                                     <div class="col-md-12">
                                         <h1><b>{{ $sparesID->hardware_type }}</b> @php echo $Stats; echo '&nbsp'; echo $isApproved; @endphp </h1>
                                     </div>
-                                    <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-5">
                                         <h5>{{ $sparesID->descriptions }}</h5>
                                     </div>
                                     <div class="col-md-12 mt-5">
                                         <h1>{!! $barcodeHTML !!}</h1>
-                                        <p style="letter-spacing: 6px;" class="text-start">{{ $sparesID->part_model1 }}</p>
                                     </div>
                                     <div class="col-md-12">
                                     

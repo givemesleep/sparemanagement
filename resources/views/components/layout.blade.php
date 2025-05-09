@@ -20,6 +20,12 @@
 
         <!-- Top Nav -->
 
+        @php
+            $CurrentUser = Session::get('user');
+            $users = $CurrentUser->username;
+            $emails = $CurrentUser->email;
+        @endphp
+
         <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="sidenavAccordion">
             <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle" href="#"><i class="bi bi-list"></i></button><a class="navbar-brand d-none d-sm-block" href="#">Spare Management</a>
             
@@ -32,8 +38,8 @@
                             <h6 class="dropdown-header d-flex align-items-center">
                                 <img class="dropdown-user-img" src="{{ asset('bootstrap/assets/img/kashinero.jpg') }}" />
                                 <div class="dropdown-user-details">
-                                    <div class="dropdown-user-details-name">Justine Marie Cuvin</div>
-                                    <div class="dropdown-user-details-email">justine.cuvin@smsgt.com</div>
+                                    <div class="dropdown-user-details-name"><b>@php echo $users; @endphp </b></div>
+                                    <div class="dropdown-user-details-email">@php echo $emails; @endphp </div>
                                 </div>
                             </h6>
                             <div class="dropdown-divider"></div>
@@ -41,7 +47,7 @@
                                     <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
                                     Account
                                 </a>
-                                <a class="dropdown-item" href="#!">
+                                <a class="dropdown-item" href="{{ route('logins.logout') }}">
                                     <div class="dropdown-item-icon"><i data-feather="log-out"></i></div>
                                 Logout
                                 </a>
@@ -88,12 +94,17 @@
 
                             <a class="nav-link" href="{{ route('spares.sparesEOSL') }}">
                                 <div class="nav-link-icon"><i class="bi bi-hdd-stack-fill"></i></div>
-                                <strong style="opacity: 40%;">Spares Life Span</strong>
+                                <strong style="opacity: 40%;">Product Lifecycle</strong>
                             </a>
 
                             <a class="nav-link" href="{{ route('spares.sparesDefect') }}">
                                 <div class="nav-link-icon"><i class="bi bi-exclamation-octagon-fill"></i></div>
                                 <strong style="opacity: 40%;">Spares Defective</strong>
+                            </a>
+
+                            <a class="nav-link" href="{{ route('logins.login') }}">
+                                <div class="nav-link-icon"><i class="bi bi-exclamation-octagon-fill"></i></div>
+                                <strong style="opacity: 40%;">User Management</strong>
                             </a>
 
                             

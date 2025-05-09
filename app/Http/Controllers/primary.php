@@ -39,7 +39,6 @@ class primary extends Controller
         ->where('is_approved', 0)
         ->count();
 
-
         //Must be Limit at 5, and order by newest
         $Recent = DB::table('tblsparesinfo')
         ->where('is_active', 1)
@@ -47,6 +46,7 @@ class primary extends Controller
         ->where('is_defect', 0)
         ->where('is_approved', 1)
         ->limit(5)
+        ->orderBy('created_at', 'desc')
         ->get();
 
         return view('primary.index', [
@@ -58,5 +58,9 @@ class primary extends Controller
         
         ]);
         
+    }
+
+    public function landingPage(){
+        return view('primary.landing');
     }
 }

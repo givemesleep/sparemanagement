@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SpareManagement\SpareTicket;
+use App\Models\SpareManagement\SparePullout;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -111,10 +112,15 @@ class SpareManagement extends Controller
         return view('spares.sparesPullout');
     }
 
-    public function AddPullOut(SpareTicket $PullOutSparesID){
+    public function AddPullOut(SpareTicket $PullOutSparesID, Request $request){
+        
         $PullOutSparesID->update(['is_pullout' => 1]);
+        $spareID = SpareTicket::find($PullOutSparesID);
+        // dd($spareID);
+        DB::insert('INSERT INTO tblsparespullout(sparesID, PullOutDate) VALUES (?, ?)', [$spareID, NOW()]);
         return redirect()->route('spares.sparesPullout')->with('success', 'Spare PullOut successfully!');
         //Session Key : success
+    
     }
 
 

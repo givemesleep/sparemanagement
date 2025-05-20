@@ -109,19 +109,49 @@ class SpareManagement extends Controller
 
     // Spares PullOut
     public function sparesPullout(){
-        return view('spares.sparesPullout');
+
+        $PullOut = SpareTicket::where('is_pullout', 1)
+            ->where('is_active', 1)
+            ->where('is_defect', 0)
+            ->where('is_approved', 1)
+            ->get();    
+
+        return view('spares.sparesPullout', ['pullout' => $PullOut]);
     }
 
     public function AddPullOut(SpareTicket $PullOutSparesID, Request $request){
-        
+        // Get the primary key value of the SpareTicket model
+        $primaryKey = $PullOutSparesID->getKey();
+
+        // Example usage: you can now use $primaryKey as needed
+        // dd($primaryKey);
+
         $PullOutSparesID->update(['is_pullout' => 1]);
-        $spareID = SpareTicket::find($PullOutSparesID);
+        // $getID = SpareTicket::where('sparesID', $primaryKey)->first();
+
+        dd($primaryKey);
+
+        // $spareID = SpareTicket::find($PullOutSparesID);
         // dd($spareID);
-        DB::insert('INSERT INTO tblsparespullout(sparesID, PullOutDate) VALUES (?, ?)', [$spareID, NOW()]);
+        DB::insert('INSERT INTO tblsparespullout(sparesID, PullOutDate) VALUES (?, ?)', [$primaryKey, NOW()]);
+        
         return redirect()->route('spares.sparesPullout')->with('success', 'Spare PullOut successfully!');
         //Session Key : success
-    
     }
+        
+    //     // $PullOutSparesID->update(['is_pullout' => 1]);
+    //     $getID = SpareTicket::where('sparesID', $PullOutSparesID->sparesID)->first();
+
+    //     // dd($getID);
+
+    //     // $spareID = SpareTicket::find($PullOutSparesID);
+    //     // dd($spareID);
+    //     DB::insert('INSERT INTO tblsparespullout(sparesID, PullOutDate) VALUES (?, ?)', [$getID, NOW()]);
+        
+    //     // return redirect()->route('spares.sparesPullout')->with('success', 'Spare PullOut successfully!');
+    //     //Session Key : success
+    
+    // }
 
 
     // Spares Archive

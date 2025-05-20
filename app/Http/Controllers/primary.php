@@ -20,7 +20,7 @@ class primary extends Controller
 
         $PullOut = DB::table('tblsparesinfo')
         ->where('is_pullout', 1)
-        ->where('is_approved', 0)
+        ->where('is_approved', 1)
         ->where('is_active', 1)
         ->where('is_defect', 0)
         ->count();

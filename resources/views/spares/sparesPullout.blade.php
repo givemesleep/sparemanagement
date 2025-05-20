@@ -83,8 +83,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php 
+                            $CountMe = 1;
+                        @endphp
+                        @foreach ($pullout as $po )
                         
-                    </tbody>
+                        @endforeach
+                   </tbody>
                 </table>
             </div>
             </div>

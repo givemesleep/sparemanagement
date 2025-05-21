@@ -76,13 +76,14 @@
                         <table class="table table-bordered table-hover" id="myTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th width="5%">ID</th>
-                                    <th width="10%">Manufacturer</th>
-                                    <th width="10%">Hardware Type</th>
-                                    <th width="25%">Description</th>
-                                    <th width="15%">Warehouse</th>
-                                    <th width="10%">Receiver</th>
-                                    <th class="text-center" width="10%">Actions</th>
+                                    <th style="width: 5%">ID</th>
+                                    <th style="width: 10%">Manufacturer</th>
+                                    <th style="width: 10%">Hardware Type</th>
+                                    <th style="width: 20%">Description</th>
+                                    <th style="width: 7%">Warehouse</th>
+                                    <th style="width: 8%">Receiver</th>
+                                    <th style="width: 10%">Received Date</th>
+                                    <th class="text-center" width="7%">Actions</th>
                                 </tr>
                             </thead>
 
@@ -98,6 +99,7 @@
                                         <td>{{ $items->descriptions }}</td>
                                         <td>{{ $items->warehouse_loc }}</td>
                                         <td>{{ $items->received_by }}</td>
+                                        <td>{{ date('F d, Y', strtotime($items->created_at)) }}</td>
                                         <td class="text-center"> 
                                             
                                             <a class="btn btn-dark btn-icon btn-sm" type="button" value="View" title="View" href="{{ route('spares.showDetails', [$items->sparesID]) }}"><i class="bi bi-eye-fill"></i></a>

@@ -76,10 +76,10 @@
                             <th style="width: 5%;">ID</th>
                             <th style="width: 5%;">Manufactor</th>
                             <th style="width: 10%;">Hardware Type</th>
-                            <th style="width: 25%;">Description</th>
-                            <th style="width: 5%;">Date Pullout</th>
-                            <th style="width: 5%;">Client</th>
-                            <th class="text-center" style="width: 10%;">Actions</th>
+                            <th style="width: 22%;">Description</th>
+                            <th style="width: 8%;">Date Pullout</th>
+                            <th style="width: 10%;">Client</th>
+                            <th class="text-center" style="width: 5%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,7 +87,23 @@
                             $CountMe = 1;
                         @endphp
                         @foreach ($pullout as $po )
-                        
+                            @php 
+
+                            @endphp
+                            <tr>
+                                <td>{{ $CountMe++ }}</td>
+                                <td>{{ $po->manufacturer }}</td>
+                                <td>{{ $po->hardware_type }}</td>
+                                <td>{{ $po->descriptions }}</td>
+                                <td>{{ date('F d, Y', strtotime($po->PullOutDate)) }}</td>
+                                <td>{{ $po->hardware_site }}</td>
+                                <td>
+                                    <div class="text-center">
+                                        <a href="" class="btn btn-dark btn-icon btn-sm" title="Retrieve"><i class="bi bi-dropbox"></i></a>
+                                        <a href="" class="btn btn-danger btn-icon btn-sm" title="Defect"><i class="bi bi-bug-fill"></i></a>
+                                    </div>                          
+                                </td>
+                            </tr>
                         @endforeach
                    </tbody>
                 </table>

@@ -76,11 +76,11 @@
                             <th style="width: 5%;">ID</th>
                             <th style="width: 5%;">Manufactor</th>
                             <th style="width: 10%;">Hardware Type</th>
-                            <th style="width: 25%;">Description</th>
-                            <th style="width: 5%;">Warehouse</th>
-                            <th style="width: 5%;">Client</th>
+                            <th style="width: 20%;">Description</th>
+                            <th style="width: 8%;">Warehouse</th>
+                            <th style="width: 7%;">Client</th>
                             <th style="width: 5%;">Status</th>
-                            <th class="text-center" style="width: 10%;">Actions</th>
+                            <th class="text-center" style="width: 5%;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,11 +100,17 @@
                                 <td>{{ $spare->descriptions }}</td>
                                 <td>{{ $spare->warehouse_loc }}</td>
                                 <td>{{ $spare->hardware_site }}</td>
-                                <td><h5><span class="badge badge-success">{{ $spare->is_active }}</span></h5></td>
-                                <td class="text-center">
-                                    <a href="{{ route('spares.showDetails', [$spare->sparesID]) }}" class="btn btn-dark btn-icon btn-sm" title="Viewing"><i class="bi bi-eye-fill"></i></a>
-                                    <a href="{{ route('spares.PullOutSpares', [$spare->sparesID]) }}" class="btn btn-success btn-icon btn-sm"><i class="bi bi-box-seam-fill"></i></a>
-                                    <a href="{{ route('spares.SpareArchive', [ $spare->sparesID ]) }}" class="btn btn-danger btn-icon btn-sm"><i class="bi bi-archive-fill"></i></a>
+                                <td>
+                                    <div class="text-center">
+                                        <h5><span class="badge badge-success">{{ $spare->is_active }}</span></h5>
+                                    </div>
+                                </td>
+                                <td >
+                                    <div class="text-center">
+                                        <a href="{{ route('spares.showDetails', [$spare->sparesID]) }}" class="btn btn-dark btn-icon btn-sm" title="Viewing"><i class="bi bi-eye-fill"></i></a>
+                                        <a href="{{ route('spares.PullOutSpares', [$spare->sparesID]) }}" class="btn btn-success btn-icon btn-sm"><i class="bi bi-box-seam-fill"></i></a>
+                                        <a href="{{ route('spares.SpareArchive', [ $spare->sparesID ]) }}" class="btn btn-danger btn-icon btn-sm"><i class="bi bi-archive-fill"></i></a>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

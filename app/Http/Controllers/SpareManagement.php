@@ -110,12 +110,22 @@ class SpareManagement extends Controller
     // Spares PullOut
     public function sparesPullout(){
 
-        $PullOut = SpareTicket::where('is_pullout', 1)
-            ->where('is_active', 1)
-            ->where('is_defect', 0)
-            ->where('is_approved', 1)
-            ->get();    
+        // $PullOut = SpareTicket::where('is_pullout', 1)
+        //     ->where('is_active', 1)
+        //     ->where('is_defect', 0)
+        //     ->where('is_approved', 1)
+        //     ->get();    
 
+        $PullOut = DB::table('tblsparesinfo')
+            ->join('tblsparespullout', 'tblsparesinfo.sparesID', '=', 'tblsparespullout.sparesID')
+            ->select('tblsparesinfo.*', 'tblsparespullout.PullOutDate')
+            ->where('tblsparesinfo.is_pullout', 1)
+            ->where('tblsparesinfo.is_active', 1)
+            ->where('tblsparesinfo.is_defect', 0)
+            ->where('tblsparesinfo.is_approved', 1)
+            ->get();
+
+        // dd($PullOut);
         return view('spares.sparesPullout', ['pullout' => $PullOut]);
     }
 
@@ -129,7 +139,7 @@ class SpareManagement extends Controller
         $PullOutSparesID->update(['is_pullout' => 1]);
         // $getID = SpareTicket::where('sparesID', $primaryKey)->first();
 
-        dd($primaryKey);
+        // dd($primaryKey);
 
         // $spareID = SpareTicket::find($PullOutSparesID);
         // dd($spareID);
@@ -139,20 +149,6 @@ class SpareManagement extends Controller
         //Session Key : success
     }
         
-    //     // $PullOutSparesID->update(['is_pullout' => 1]);
-    //     $getID = SpareTicket::where('sparesID', $PullOutSparesID->sparesID)->first();
-
-    //     // dd($getID);
-
-    //     // $spareID = SpareTicket::find($PullOutSparesID);
-    //     // dd($spareID);
-    //     DB::insert('INSERT INTO tblsparespullout(sparesID, PullOutDate) VALUES (?, ?)', [$getID, NOW()]);
-        
-    //     // return redirect()->route('spares.sparesPullout')->with('success', 'Spare PullOut successfully!');
-    //     //Session Key : success
-    
-    // }
-
 
     // Spares Archive
     public function SpareArchive(SpareTicket $ArchiveSparesID){

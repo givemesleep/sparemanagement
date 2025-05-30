@@ -15,12 +15,40 @@
         @yield('headscript')
     </head>
     @yield('styles')
+    <style>
+        .container{
+            /* Add the blur effect */
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            
+            background-image: url("{{ asset('images/SMS.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .bg-text{
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
     <body class="nav-fixed">
-        <div class="row">
+        <div class="container" style="max-width: 100%; height: 100vh; background-color: rgba(0, 0, 0, 0.5);"></div>
+       
+        <div class="row bg-text">
             <div class="col-lg-4"></div>
+
             <div class="col-lg-4 mt-5">
                 @yield('main')
             </div>
+
             <div class="col-lg-4"></div>
 
         </div>
